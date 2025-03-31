@@ -1,32 +1,53 @@
-var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var createError = require('http-errors');
 var mongoose = require('mongoose');
+var productsRouter = require('./routes/products'); // Updated route name
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+var bodyParser = require('body-parser');
 
-var employeesRouter = require('./routes/employees');
+require('./models/Product'); // Register the Product model
 
 var app = express();
+var PORT = 8000;
 
-// view engine setup
+// Database Connection
+async function connect() {
+  try {
+    const uri = "mongodb+srv://pdelfino30:yC7OwNA7nVBserrA@cluster0.oovze.mongodb.net/products?retryWrites=true&w=majority&appName=Cluster0";
+    await mongoose.connect(uri);
+    console.log('Connected to MongoDB Atlas');
+  } catch (error) {
+    console.error('Error connecting to MongoDB Atlas:', error);
+    process.exit(1);
+  }
+}
+
+// View engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+// Middleware
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use('/employees', employeesRouter);
+// Routes
+app.use('/products', productsRouter); // Updated route path
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
 
-// catch 404 and forward to error handler
+// Error Handling
 app.use(function(req, res, next) {
   next(createError(404));
 });
 
-// error handler
 app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -34,21 +55,14 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-const uri = "mongodb+srv://pdelfino30:qb7bD0yvmCT9dtbS@cluster0.oovze.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-
-async function connect() {
-  try {
-    await mongoose.connect(uri);
-    console.log("Connected to MongoDB");
-  } catch (error) {
-    console.error(error);
-  }
+// Start Server
+async function startServer() {
+  await connect();
+  app.listen(PORT, function() {
+    console.log(`Server started on port ${PORT}`);
+  });
 }
 
-connect();
-
-app.listen(8000, () => {
-  console.log("Server started on port 8000");
-});
+startServer();
 
 module.exports = app;

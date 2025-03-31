@@ -1,0 +1,102 @@
+body {
+  font-family: sans-serif;
+  margin: 20px;
+  background-color: #f5f5dc; /* Beige background */
+}
+
+h1 {
+  color: #8b4513; /* Saddlebrown for headings */
+  margin-bottom: 20px;
+}
+
+a {
+  text-decoration: none;
+  color: #daa520; /* Goldenrod for links */
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  border: 1px solid #e6d0a7; /* Darker moccasin border */
+  padding: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f0e68c; /* Khaki for list items */
+  color: #333; /* Dark gray for list item text */
+}
+
+li a {
+  margin-left: 10px;
+}
+
+form {
+  width: 400px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: #556b2f; /* Dark olive green for labels */
+}
+
+input[type="text"],
+input[type="number"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #e6d0a7; /* Darker moccasin border */
+  background-color: #f5f5f5; /* Light gray for input fields */
+  box-sizing: border-box;
+  color: #333; /* Dark gray for input field text */
+}
+
+input[type="submit"] {
+  background-color: #ffd700; /* Gold for buttons */
+  color: black;
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  width: auto;
+}
+
+.error {
+  color: #ff0000; /* Red for errors */
+}
+
+form label {
+  display: inline-block;
+  width: 100px;
+  vertical-align: top;
+}
+
+form input[type="text"],
+form input[type="number"],
+form textarea {
+  display: inline-block;
+  width: calc(100% - 110px);
+}
+
+/* Adjustments for index.ejs */
+body > a {
+  display: block;
+  margin: 20px 0;
+  padding: 10px;
+  background-color: #fffacd;
+  border: 1px solid #e6d0a7;
+  width: fit-content;
+  color: #333; /* Dark gray for "Create New Product" link text */
+}
+
+body > ul {
+  margin-top: 20px;
+}

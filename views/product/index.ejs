@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product List</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <h1>Product List</h1>
+    <a href="/products/create">Create New Product</a>
+    <ul>
+        <% products.forEach(function(product) { %>
+            <li>
+                <span><%= product.name %> - <%= product.price %></span>
+                <span>
+                    <a href="/products/show/<%= product._id %>">View</a>
+                    <a href="/products/edit/<%= product._id %>">Edit</a>
+                    <a href="/products/delete/<%= product._id %>">Delete</a>
+                </span>
+            </li>
+        <% }); %>
+    </ul>
+</body>
+</html>
